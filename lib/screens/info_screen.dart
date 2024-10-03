@@ -69,8 +69,12 @@ class InfoScreen extends StatelessWidget {
                   child: Text("Para la enseñanza y aprendizaje derivados de la materia.", style: textStyle, textAlign: TextAlign.center,),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 80, right: 20, left: 20),
+                  padding: const EdgeInsets.only(top: 50, right: 20, left: 20),
                   child: Text("Código fuente:", style: textStyle, textAlign: TextAlign.center,),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, right: 20, left: 20),
+                  child: Image.asset('assets/images/qr_repo.png', width: 120, height: 120)
                 ),
               ],
             ),
