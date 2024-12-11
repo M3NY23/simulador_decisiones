@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:simulador_decisiones/objects/Matrix.dart';
+import 'package:simulador_decisiones/widgets/custom_table.dart';
 
 class SimulatorScreen extends StatefulWidget {
   const SimulatorScreen({super.key});
@@ -8,6 +10,7 @@ class SimulatorScreen extends StatefulWidget {
 }
 
 class _SimulatorScreenState extends State<SimulatorScreen> {
+  late Matrix matrix;
   final List<String> list = <String>[
     'Maximax',
     'Maximin',
@@ -20,6 +23,12 @@ class _SimulatorScreenState extends State<SimulatorScreen> {
   final List<String> list2 = <String>['One', 'Two', 'Three', 'Four'];
 
   @override
+  void initState() {
+    matrix = Matrix();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -29,35 +38,108 @@ class _SimulatorScreenState extends State<SimulatorScreen> {
           ),
           backgroundColor: Theme.of(context).primaryColor,
         ),
-        body: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-            child: Column(
-              children: [
-                _getTable(),
-                const SizedBox(height: 50),
-                _getSelector(context),
-                const SizedBox(height: 50),
-                ElevatedButton(
-                    style: const ButtonStyle(
-                        backgroundColor: WidgetStatePropertyAll(
-                             Color.fromARGB(255, 64, 153, 111))),
-                    onPressed: () {},
-                    child: const Row(
-                      children: [
-                        Expanded(
-                            child: Text(
-                          "Resolver",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.white),
-                        )),
-                      ],
-                    ))
-              ],
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+                padding: const EdgeInsets.only(top: 40), child: _getTable()),
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 40),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(color: Colors.grey, width: 0.5),
+                  borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20))),
+              child: Column(
+                children: [
+                  _getRowsAndColumnControls(context),
+                  const SizedBox(height: 20),
+                  _getSelector(context),
+                  const SizedBox(height: 20),
+                  ElevatedButton(
+                      style: const ButtonStyle(
+                          backgroundColor: WidgetStatePropertyAll(
+                              Color.fromARGB(255, 64, 153, 111))),
+                      onPressed: () {},
+                      child: const Row(
+                        children: [
+                          Expanded(
+                              child: Text(
+                            "Resolver",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.white),
+                          )),
+                        ],
+                      ))
+                ],
+              ),
             ),
-          ),
+          ],
         ));
+  }
+
+  Widget _getRowsAndColumnControls(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 20),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              CircleAvatar(
+                backgroundColor: Theme.of(context).primaryColor,
+                child: IconButton(
+                    icon: const Icon(Icons.remove),
+                    color: Colors.white,
+                    onPressed: () {
+                      matrix.removeRow();
+                      setState(() {});
+                    }),
+              ),
+              const Text("Fila"),
+              CircleAvatar(
+                backgroundColor: Theme.of(context).primaryColor,
+                child: IconButton(
+                    icon: const Icon(Icons.add),
+                    color: Colors.white,
+                    onPressed: () {
+                      matrix.addRow();
+                      setState(() {});
+                    }),
+              )
+            ],
+          ),
+          const SizedBox(height: 30),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              CircleAvatar(
+                backgroundColor: Theme.of(context).primaryColor,
+                child: IconButton(
+                    icon: const Icon(Icons.remove),
+                    color: Colors.white,
+                    onPressed: () {
+                      matrix.removeColumn();
+                      setState(() {});
+                    }),
+              ),
+              const Text("Columna"),
+              CircleAvatar(
+                backgroundColor: Theme.of(context).primaryColor,
+                child: IconButton(
+                    icon: const Icon(Icons.add),
+                    color: Colors.white,
+                    onPressed: () {
+                      matrix.addColumn();
+                      setState(() {});
+                    }),
+              )
+            ],
+          )
+        ],
+      ),
+    );
   }
 
   Row _getSelector(BuildContext context) {
@@ -81,12 +163,7 @@ class _SimulatorScreenState extends State<SimulatorScreen> {
               height: 1,
               color: Theme.of(context).primaryColor,
             ),
-            onChanged: (String? value) {
-              // This is called when the user selects an item.
-              // setState(() {
-              //   dropdownValue = value!;
-              // });
-            },
+            onChanged: (String? value) {},
             items: list.map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
@@ -99,182 +176,7 @@ class _SimulatorScreenState extends State<SimulatorScreen> {
     );
   }
 
-  SingleChildScrollView _getTable() {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Column(
-            children: [
-              Container(
-                height: 70,
-                width: 70,
-              ),
-              Container(
-                height: 70,
-                width: 70,
-                child: Center(child: Text("A1")),
-              ),
-              Container(
-                height: 70,
-                width: 70,
-                child: Center(child: Text("A2")),
-              ),
-              Container(
-                height: 70,
-                width: 70,
-                child: Center(child: Text("A3")),
-              ),
-            ],
-          ),
-          Column(
-            children: [
-              Container(
-                height: 70,
-                width: 70,
-                child: Center(child: Text("E1")),
-              ),
-              Container(
-                height: 70,
-                width: 70,
-                padding: EdgeInsets.all(5),
-                child: Center(
-                  child: TextField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                height: 70,
-                width: 70,
-                padding: EdgeInsets.all(5),
-                child: Center(
-                  child: TextField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                height: 70,
-                width: 70,
-                padding: EdgeInsets.all(5),
-                child: Center(
-                  child: TextField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Column(
-            children: [
-              Container(
-                height: 70,
-                width: 70,
-                padding: EdgeInsets.all(5),
-                child: Center(child: Text("E2")),
-              ),
-              Container(
-                height: 70,
-                width: 70,
-                padding: EdgeInsets.all(5),
-                child: Center(
-                  child: TextField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                height: 70,
-                width: 70,
-                padding: EdgeInsets.all(5),
-                child: Center(
-                  child: TextField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                height: 70,
-                width: 70,
-                padding: EdgeInsets.all(5),
-                child: Center(
-                  child: TextField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Column(
-            children: [
-              Container(
-                height: 70,
-                width: 70,
-                child: Center(child: Text("E3")),
-              ),
-              Container(
-                height: 70,
-                width: 70,
-                padding: EdgeInsets.all(5),
-                child: Center(
-                  child: TextField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                height: 70,
-                width: 70,
-                padding: EdgeInsets.all(5),
-                child: Center(
-                  child: TextField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                height: 70,
-                width: 70,
-                padding: EdgeInsets.all(5),
-                child: Center(
-                  child: TextField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
+  CustomTable _getTable() {
+    return CustomTable(matrix: matrix);
   }
 }
