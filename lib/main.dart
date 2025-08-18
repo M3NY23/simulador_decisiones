@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:simulador_decisiones/blocs/vector_cubit.dart';
 import 'package:simulador_decisiones/screens/main_screen.dart';
 import 'package:simulador_decisiones/themes/principal_theme.dart';
 
