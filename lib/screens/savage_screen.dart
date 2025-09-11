@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:simulador_decisiones/texts/maxi_screen_texts.dart';
 import 'package:simulador_decisiones/widgets/markdown_viewer.dart';
 
 class SavageScreen extends StatelessWidget {

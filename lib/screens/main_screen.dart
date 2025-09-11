@@ -4,7 +4,8 @@ import 'package:simulador_decisiones/screens/info_screen.dart';
 import 'package:simulador_decisiones/screens/laplace_screen.dart';
 import 'package:simulador_decisiones/screens/maximax_maximin_screen.dart';
 import 'package:simulador_decisiones/screens/savage_screen.dart';
-import 'package:simulador_decisiones/screens/simulator_screen.dart';
+import 'package:simulador_decisiones/screens/simulators/matrix_screen.dart';
+import 'package:simulador_decisiones/screens/simulators/simplex_screen.dart';
 import 'package:simulador_decisiones/texts/main_screen_texts.dart';
 
 class MainScreen extends StatefulWidget {
@@ -183,13 +184,23 @@ class _MainScreenState extends State<MainScreen> {
             ),
           ),
           ListTile(
-            title: Text('Simulador', style: listTextStyle),
+            title: Text('Simulador Matricial', style: listTextStyle),
             leading: const Icon(Icons.calculate, size: 30),
             onTap: () {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const SimulatorScreen()));
+                      builder: (context) => const MatrixScreen()));
+            },
+          ),
+          ListTile(
+            title: Text('Simulador Simplex', style: listTextStyle),
+            leading: const Icon(Icons.calculate, size: 30),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SimplexScreen()));
             },
           ),
           const Padding(

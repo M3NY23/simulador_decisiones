@@ -6,14 +6,14 @@ import 'package:simulador_decisiones/widgets/add_remove_widget.dart';
 import 'package:simulador_decisiones/widgets/custom_table.dart';
 import 'package:simulador_decisiones/widgets/custom_table_result.dart';
 
-class SimulatorScreen extends StatefulWidget {
-  const SimulatorScreen({super.key});
+class MatrixScreen extends StatefulWidget {
+  const MatrixScreen({super.key});
 
   @override
-  State<SimulatorScreen> createState() => _SimulatorScreenState();
+  State<MatrixScreen> createState() => _MatrixScreenState();
 }
 
-class _SimulatorScreenState extends State<SimulatorScreen> {
+class _MatrixScreenState extends State<MatrixScreen> {
   late VectorController vectorContoller;
   late String decisionModelSelected;
   late double rangeSelected;

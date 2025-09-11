@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_markdown_latex/flutter_markdown_latex.dart';
 import 'package:markdown_widget/config/configs.dart';
 import 'package:markdown_widget/config/markdown_generator.dart';
 import 'package:markdown_widget/widget/markdown.dart';
